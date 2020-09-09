@@ -1,6 +1,6 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Menus;
+namespace OZiTAG\Tager\Backend\Panel;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 
