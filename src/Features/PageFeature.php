@@ -17,7 +17,11 @@ class PageFeature extends Feature
     public function handle()
     {
         return new JsonResource([
-            'adminPageUrl' => '/admin'
+            'language' => 'EN',
+            'button' => [
+                'label' => 'Edit Page',
+                'url' => '/admin/?page=' . $this->path
+            ]
         ]);
     }
 }
