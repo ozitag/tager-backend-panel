@@ -26,7 +26,10 @@ class GetRouteResultJob extends Job
                 continue;
             }
 
-            return $handler->getRouteHandler()->handle($this->path, $parseResult);
+            $result = $handler->getRouteHandler()->handle($this->path, $parseResult);
+            if($result){
+                return $result;
+            }
         }
 
         return null;
