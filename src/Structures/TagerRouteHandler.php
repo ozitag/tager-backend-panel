@@ -31,8 +31,14 @@ class TagerRouteHandler
      */
     public function parseRoute($path)
     {
-        if (!preg_match('#' . $this->regex . '#', $path, $result)) {
-            return false;
+        try {
+            if (!preg_match($this->regex, $path, $result)) {
+                return false;
+            }
+        } catch (\Exception $exception) {
+            if (!preg_match('#' . $this->regex . '#', $path, $result)) {
+                return false;
+            }
         }
 
         return array_slice($result, 1);

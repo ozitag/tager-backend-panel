@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Panel;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\App;
 use OZiTAG\Tager\Backend\Panel\Contracts\IRouteHandler;
 use OZiTAG\Tager\Backend\Panel\Structures\TagerRouteHandler;
 
@@ -19,8 +19,13 @@ class TagerPanel
         return self::$routeHandlers;
     }
 
-    public static function registerRouteHandler($routeRegex, IRouteHandler $hanlder)
+    public static function registerRouteHandler($routeRegex, $handlerClassName)
     {
-        self::$routeHandlers[] = new TagerRouteHandler($routeRegex, $hanlder);
+        $handlerClass = App::make($handlerClassName);
+        if (!$handlerClass instanceof IRouteHandler) {
+            throw new \Exception('handlerClass must implements IRouteHandler contract');
+        }
+
+        self::$routeHandlers[] = new TagerRouteHandler($routeRegex, $handlerClass);
     }
 }
