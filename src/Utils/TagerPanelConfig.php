@@ -15,8 +15,8 @@ class TagerPanelConfig
     /**
      * @return string
      */
-    public static function getAdminBaseUri()
+    public static function getAdminHomeUrl()
     {
-        return (string)config('tager-panel.adminBaseUri', '/admin');
+        return (string)config('tager-panel.adminHomeUrl', '/admin');
     }
 }

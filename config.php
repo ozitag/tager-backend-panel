@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'language' => 'en'
+    'language' => 'en',
+    'adminHomeUrl' => '/admin'
 ];

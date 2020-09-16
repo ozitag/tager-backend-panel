@@ -10,18 +10,18 @@ class InfoResource extends JsonResource
 {
     private $language;
 
-    private $baseUrl;
+    private $adminHomeUrl;
 
-    public function __construct($language, $baseUrl)
+    public function __construct($language, $adminHomeUrl)
     {
         $this->language = $language;
-        $this->baseUrl = $baseUrl;
+        $this->adminHomeUrl = $adminHomeUrl;
     }
 
     public function toArray($request)
     {
         return [
-            'baseUrl' => $this->baseUrl,
+            'adminHomeUrl' => $this->adminHomeUrl,
             'language' => $this->language
         ];
     }
