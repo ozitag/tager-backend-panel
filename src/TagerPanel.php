@@ -17,7 +17,13 @@ class TagerPanel
      */
     public static function getRouteHandlers()
     {
-        return self::$routeHandlers;
+        $routeHandlers = self::$routeHandlers;
+
+        usort($routeHandlers, function ($a, $b) {
+            return strlen($a->getRegex()) < strlen($b->getRegex()) ? 1 : -1;
+        });
+
+        return $routeHandlers;
     }
 
     public static function registerRouteHandler($routeRegex, $handlerClassName)

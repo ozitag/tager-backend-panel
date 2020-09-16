@@ -18,6 +18,14 @@ class TagerRouteHandler
     }
 
     /**
+     * @return mixed
+     */
+    public function getRegex()
+    {
+        return $this->regex;
+    }
+
+    /**
      * @return IRouteHandler
      */
     public function getRouteHandler()
@@ -54,14 +62,14 @@ class TagerRouteHandler
     public function parseRoute($path)
     {
         $p = strrpos($path, '?');
-        if($p !== false){
+        if ($p !== false) {
             $path = substr($path, 0, $p);
         }
 
         $regex = $this->validateRegex();
 
         if (!preg_match($regex, $path, $result)) {
-           return false;
+            return false;
         }
 
         return array_slice($result, 1);
