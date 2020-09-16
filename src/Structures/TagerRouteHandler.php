@@ -26,19 +26,42 @@ class TagerRouteHandler
     }
 
     /**
+     * @return string
+     * @throws \Exception
+     */
+    private function validateRegex()
+    {
+        $regex = $this->regex;
+
+        try {
+            preg_match($regex, null);
+        } catch (\Exception $exception) {
+            $regex = '#' . $this->regex . '#';
+            try {
+                preg_match($regex, null);
+            } catch (\Exception $exception) {
+                throw new \Exception('Invalid regex "' . $this->regex . '"');
+            }
+        }
+
+        return $regex;
+    }
+
+    /**
      * @param string $path
      * @return bool|array
      */
     public function parseRoute($path)
     {
-        try {
-            if (!preg_match($this->regex, $path, $result)) {
-                return false;
-            }
-        } catch (\Exception $exception) {
-            if (!preg_match('#' . $this->regex . '#', $path, $result)) {
-                return false;
-            }
+        $p = strrpos($path, '?');
+        if($p !== false){
+            $path = substr($path, 0, $p);
+        }
+
+        $regex = $this->validateRegex();
+
+        if (!preg_match($regex, $path, $result)) {
+           return false;
         }
 
         return array_slice($result, 1);

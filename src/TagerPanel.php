@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Panel;
 
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\App;
 use OZiTAG\Tager\Backend\Panel\Contracts\IRouteHandler;
 use OZiTAG\Tager\Backend\Panel\Structures\TagerRouteHandler;
