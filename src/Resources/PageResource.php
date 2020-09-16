@@ -15,28 +15,16 @@ class PageResource extends JsonResource
     {
         $this->result = $result;
     }
-
-    private function getButtonJson()
-    {
-        if (!$this->result) {
-            return null;
-        }
-
-        return [
-            'label' => $this->result->getActionButtonLabel(),
-            'url' => '/admin' . $this->result->getActionButtonUrl()
-        ];
-    }
-
+    
     private function getActions()
     {
-        if (empty($this->result->getActions())) {
+        if (!$this->result) {
             return [];
         }
 
         return array_map(function ($action) {
             return [
-                'url' => $action['url'] ?? null,
+                'url' => isset($action['url']) ? TagerPanelConfig::getAdminHomeUrl() . $action['url'] : null,
                 'label' => $action['label'] ?? null
             ];
         }, $this->result->getActions());
@@ -44,7 +32,7 @@ class PageResource extends JsonResource
 
     private function getModel()
     {
-        if (!$this->result->hasModel()) {
+        if (!$this->result || !$this->result->hasModel()) {
             return null;
         }
 
