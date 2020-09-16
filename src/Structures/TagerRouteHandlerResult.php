@@ -4,33 +4,58 @@ namespace OZiTAG\Tager\Backend\Panel\Structures;
 
 class TagerRouteHandlerResult
 {
-    private $actionButtonLabel;
+    private $actions = [];
 
-    private $actionButtonUrl;
+    /** @var string */
+    private $modelType = null;
 
-    public function __construct($actionButtonLabel, $actionButtonUrl)
+    /** @var string */
+    private $modelName = null;
+
+    public function setModel($type, $name)
     {
-        $this->setActionButtonLabel($actionButtonLabel);
-        $this->setActionButtonUrl($actionButtonUrl);
+        $this->modelType = $type;
+
+        $this->modelName = $name;
     }
 
-    public function setActionButtonLabel($value)
+    public function addAction($label, $url)
     {
-        $this->actionButtonLabel = $value;
+        $this->actions[] = [
+            'url' => $url,
+            'label' => $label
+        ];
     }
 
-    public function getActionButtonLabel()
+    /**
+     * @return bool
+     */
+    public function hasModel()
     {
-        return $this->actionButtonLabel;
+        return !empty($this->modelType);
     }
 
-    public function setActionButtonUrl($value)
+    /**
+     * @return string|null
+     */
+    public function getModelName()
     {
-        $this->actionButtonUrl = $value;
+        return $this->modelName;
     }
 
-    public function getActionButtonUrl()
+    /**
+     * @return string|null
+     */
+    public function getModelType()
     {
-        return $this->actionButtonUrl;
+        return $this->modelType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

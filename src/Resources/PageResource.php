@@ -28,19 +28,37 @@ class PageResource extends JsonResource
         ];
     }
 
+    private function getActions()
+    {
+        if (empty($this->result->getActions())) {
+            return [];
+        }
+
+        return array_map(function ($action) {
+            return [
+                'url' => $action['url'] ?? null,
+                'label' => $action['label'] ?? null
+            ];
+        }, $this->result->getActions());
+    }
+
+    private function getModel()
+    {
+        if (!$this->result->hasModel()) {
+            return null;
+        }
+
+        return [
+            'type' => $this->result->getModelType(),
+            'name' => $this->result->getModelName()
+        ];
+    }
+
     public function toArray($request)
     {
         return [
-            'actions' => [
-                [
-                    'url' => '/admin/pages/1',
-                    'label' => 'Edit Page'
-                ]
-            ],
-            'model' => [
-                'type' => 'Page',
-                'name' => 'FAQ'
-            ]
+            'actions' => $this->getActions(),
+            'model' => $this->getModel()
         ];
     }
 }
