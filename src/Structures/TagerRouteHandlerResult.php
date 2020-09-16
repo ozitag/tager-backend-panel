@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Panel\Structures;
 
-class RouteHandlerResult
+class TagerRouteHandlerResult
 {
     private $actionButtonLabel;
 

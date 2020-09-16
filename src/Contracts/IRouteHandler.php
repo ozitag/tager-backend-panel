@@ -2,7 +2,10 @@
 
 namespace OZiTAG\Tager\Backend\Panel\Contracts;
 
+use OZiTAG\Tager\Backend\Panel\Structures\TagerRouteHandlerResult;
+
 interface IRouteHandler
 {
-    public function handle($route);
+    /** @return TagerRouteHandlerResult */
+    public function handle($route, $matches);
 }

@@ -7,6 +7,7 @@ use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Panel\Jobs\GetRouteResultJob;
 use OZiTAG\Tager\Backend\Panel\Resources\PageResource;
 use OZiTAG\Tager\Backend\Panel\Structures\RouteHandlerResult;
+use OZiTAG\Tager\Backend\Panel\Structures\TagerRouteHandlerResult;
 
 class PageFeature extends Feature
 {
@@ -19,6 +20,7 @@ class PageFeature extends Feature
 
     public function handle()
     {
+        /** @var TagerRouteHandlerResult $result */
         $result = $this->run(GetRouteResultJob::class, [
             'path' => $this->path
         ]);

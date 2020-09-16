@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Panel\Jobs;
 
 use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Pages\Models\TagerPage;
+use OZiTAG\Tager\Backend\Panel\TagerPanel;
 
 class GetRouteResultJob extends Job
 {
@@ -16,6 +17,18 @@ class GetRouteResultJob extends Job
 
     public function handle()
     {
+        $handlers = TagerPanel::getRouteHandlers();
+
+        foreach ($handlers as $handler) {
+
+            $parseResult = $handler->parseRoute($this->path);
+            if ($parseResult === false) {
+                continue;
+            }
+
+            return $handler->getRouteHandler()->handle($this->path, $parseResult);
+        }
+
         return null;
     }
 }
