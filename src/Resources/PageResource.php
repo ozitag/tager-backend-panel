@@ -24,15 +24,23 @@ class PageResource extends JsonResource
 
         return [
             'label' => $this->result->getActionButtonLabel(),
-            'url' => $this->result->getActionButtonUrl()
+            'url' => '/admin' . $this->result->getActionButtonUrl()
         ];
     }
 
     public function toArray($request)
     {
         return [
-            'language' => TagerPanelConfig::getLanguage(),
-            'button' => $this->getButtonJson()
+            'actions' => [
+                [
+                    'url' => '/admin/pages/1',
+                    'label' => 'Edit Page'
+                ]
+            ],
+            'model' => [
+                'type' => 'Page',
+                'name' => 'FAQ'
+            ]
         ];
     }
 }

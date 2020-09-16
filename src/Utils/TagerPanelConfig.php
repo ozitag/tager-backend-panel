@@ -9,6 +9,14 @@ class TagerPanelConfig
      */
     public static function getLanguage()
     {
-        return strtoupper(config('tager-panel.language', 'EN'));
+        return strtoupper((string)config('tager-panel.language', 'EN'));
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAdminBaseUri()
+    {
+        return (string)config('tager-panel.adminBaseUri', '/admin');
     }
 }
