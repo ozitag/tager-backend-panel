@@ -3,8 +3,10 @@
 namespace OZiTAG\Tager\Backend\Panel\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\URL;
 use OZiTAG\Tager\Backend\Panel\Structures\TagerRouteHandlerResult;
 use OZiTAG\Tager\Backend\Panel\Utils\TagerPanelConfig;
+use OZiTAG\Tager\Backend\Utils\Helpers\UrlHelper;
 
 class PageResource extends JsonResource
 {
@@ -15,7 +17,7 @@ class PageResource extends JsonResource
     {
         $this->result = $result;
     }
-    
+
     private function getActions()
     {
         if (!$this->result) {
@@ -24,7 +26,9 @@ class PageResource extends JsonResource
 
         return array_map(function ($action) {
             return [
-                'url' => isset($action['url']) ? TagerPanelConfig::getAdminHomeUrl() . $action['url'] : null,
+                'url' => isset($action['url']) ?
+                    (UrlHelper::isAbsoluteUrl($action['url']) ? '' : TagerPanelConfig::getAdminHomeUrl()) . $action['url'] :
+                    null,
                 'label' => $action['label'] ?? null
             ];
         }, $this->result->getActions());
